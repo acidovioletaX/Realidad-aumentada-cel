@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#000000">
+<title>Orbes Mandálicos AR</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<video id="cam" playsinline muted autoplay></video>
+<canvas id="stage"></canvas>
+
+<div id="intro">
+  <h1>ORBES<br>MANDÁLICOS</h1>
+  <p>Esferas ácidas con sombra y sonido, flotando sobre lo que filma tu cámara.</p>
+  <button id="start">Activar cámara y sonido</button>
+  <small id="err"></small>
+</div>
+
+<div id="ui" hidden>
+  <button id="rec" aria-label="Grabar">●</button>
+  <button id="add" aria-label="Añadir orbe">+</button>
+  <button id="clear" aria-label="Quitar orbes">✕</button>
+  <button id="flip" aria-label="Cambiar cámara">⟲</button>
+  <button id="mute" aria-label="Sonido">♪</button>
+  <span id="timer"></span>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
