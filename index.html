@@ -2,30 +2,66 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
-<meta name="theme-color" content="#000000">
-<title>Orbes Mandálicos AR</title>
-<link rel="stylesheet" href="style.css">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#05060a">
+<title>Orbes AR</title>
+<style>
+  :root {
+    --bg: #05060a; --fg: #e9f6ff; --dim: #7d8aa0; --cyan: #19e3ff; --line: #1b2230;
+    --mono: ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  * { box-sizing: border-box }
+  html, body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.5 -apple-system, system-ui, sans-serif }
+  main {
+    min-height: 100vh; max-width: 520px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px;
+    padding: calc(28px + env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) calc(28px + env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
+  }
+  .tag { font: 11px var(--mono); letter-spacing: .2em; color: var(--cyan); text-transform: uppercase }
+  h1 { margin: 6px 0 0; font-weight: 300; font-size: 40px; letter-spacing: .04em; line-height: 1.05 }
+  a.ar { display: block; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; position: relative }
+  a.ar img { display: block; width: 100%; height: auto }
+  .btn {
+    display: flex; align-items: center; justify-content: center; gap: 10px; padding: 16px; border-radius: 4px;
+    background: var(--cyan); color: #001018; font: 600 13px var(--mono); letter-spacing: .14em; text-transform: uppercase; text-decoration: none;
+  }
+  ol { margin: 0; padding: 0; list-style: none; display: grid; gap: 14px; border-top: 1px solid var(--line); padding-top: 22px }
+  li { display: grid; grid-template-columns: 34px 1fr; color: var(--dim) }
+  li b { color: var(--fg); font-weight: 500 }
+  li span { font: 12px var(--mono); color: var(--cyan) }
+  .warn { font-size: 13px; color: #ffcf6b; border: 1px solid #4a3a12; padding: 10px 12px; border-radius: 4px }
+  footer { font: 11px var(--mono); color: var(--dim); letter-spacing: .08em }
+</style>
 </head>
 <body>
-<video id="cam" playsinline muted autoplay></video>
-<canvas id="stage"></canvas>
+<main>
+  <header>
+    <div class="tag">Realidad aumentada · iPhone</div>
+    <h1>ORBES</h1>
+  </header>
 
-<div id="intro">
-  <h1>ORBES<br>MANDÁLICOS</h1>
-  <p>Esferas ácidas con sombra y sonido, flotando sobre lo que filma tu cámara.</p>
-  <button id="start">Activar cámara y sonido</button>
-  <small id="err"></small>
-</div>
+  <!-- rel="ar" abre AR Quick Look en Safari; el <img> como primer hijo es obligatorio -->
+  <a class="ar" rel="ar" href="orbes.usdz#allowsContentScaling=0">
+    <img src="preview.png" alt="Cinco orbes luminosos: erizos cian y azul, un anillo de conchas y una flor violeta">
+  </a>
+  <a class="btn" rel="ar" href="orbes.usdz#allowsContentScaling=0"><img src="preview.png" alt="" width="1" height="1" style="display:none">Abrir en AR</a>
 
-<div id="ui" hidden>
-  <button id="rec" aria-label="Grabar">●</button>
-  <button id="add" aria-label="Añadir orbe">+</button>
-  <button id="clear" aria-label="Quitar orbes">✕</button>
-  <button id="flip" aria-label="Cambiar cámara">⟲</button>
-  <button id="mute" aria-label="Sonido">♪</button>
-  <span id="timer"></span>
-</div>
-<script src="app.js"></script>
+  <p class="warn" id="warn" hidden></p>
+
+  <ol>
+    <li><span>01</span><div><b>Apunta al piso</b> y mueve el celular despacio hasta que la escena se fije.</div></li>
+    <li><span>02</span><div><b>Camina entre los orbes.</b> Quedan anclados en su sitio, a la altura de la vista, a 1–4 m de donde los colocas.</div></li>
+    <li><span>03</span><div><b>Sube el volumen.</b> Cada orbe tiene su propio tono y suena más fuerte cuando te acercas.</div></li>
+    <li><span>04</span><div><b>Graba</b> con la grabación de pantalla del Centro de control (mantén pulsado el botón para activar el micrófono).</div></li>
+  </ol>
+
+  <footer>5 orbes · ciclo de 8 s · escala real</footer>
+</main>
+<script>
+  const ua = navigator.userAgent, ios = /iPhone|iPad|iPod/.test(ua) || (ua.includes('Mac') && 'ontouchend' in document);
+  const safari = ios && !/CriOS|FxiOS|EdgiOS|OPiOS|Brave/.test(ua);
+  const w = document.getElementById('warn');
+  if (!ios) { w.textContent = 'Abre esta página en un iPhone o iPad: la vista AR usa AR Quick Look de iOS.'; w.hidden = false; }
+  else if (!safari) { w.textContent = 'Si no se abre la cámara, abre esta página en Safari.'; w.hidden = false; }
+</script>
 </body>
 </html>
